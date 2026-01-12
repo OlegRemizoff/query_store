@@ -14,11 +14,9 @@ $pass = '';
 $db = new PDO("mysql:host={$host};dbname={$db_name}", $user, $pass);
 
 
-if (isset($_SESSION['tables'])) {
-    create_tables();
-}
-
+// Проверяет есть ли нужные таблицы и заполняет их дынными
 check();
+
 
 
 
@@ -44,6 +42,12 @@ check();
 
 <body>
     <h1>Query Store</h1>
+    <?php if (!empty($_SESSION['errors'])): ?>
+    <?php 
+        echo $_SESSION['errors'];
+        unset($_SESSION['errors']); 
+    ?>
+    <?php endif; ?>
 
     <!-- <a href="index.php?action=drop" onclick="return confirm('Вы уверены?')">Удалить таблицы</a> -->
 

@@ -65,9 +65,8 @@ function create_tables()
 
     try {
         $db->exec($sql);
-        $_SESSION['tables'] = 1;
     } catch (Exception $e) {
-        echo $e;
+        $_SESSION['errors'] = "Ошибка при создании таблиц <br> {$e}";
     }
 }
 
@@ -135,34 +134,42 @@ function filing_database()
 
         $db->commit();
         echo "Все данные успешно добавлены!";
-        $_SESSION['data'] = 1;
     } catch (Exception $e) {
         $db->rollBack(); // Откат таблиц к прежнему состоянию
-        echo "Ошибка: " . $e->getMessage();
+        $_SESSION['errors'] = "Ошибка при заполнении таблиц: " . $e->getMessage();
     }
 }
 
 
 
-// Если нет записей, то запуститься функция заполнение таблиц
-function check() 
+// Проверяет есть ли нужные таблицы и заполняет дынными из массива data.php
+function check()
 {
     global $db;
+
+
+    $stmt0 = $db->prepare("
+    SELECT 
+        TABLE_NAME 
+    FROM 
+        information_schema.TABLES 
+    WHERE 
+        TABLE_SCHEMA = 'query_store' AND TABLE_NAME IN ('movies', 'users')");
+
+    $stmt0->execute();
+    $existing_tables = $stmt0->fetchAll();
+    if (empty($existing_tables)) {
+        create_tables();
+    }
+
 
     $stmt1 = $db->prepare("SELECT COUNT(id) FROM actors");
     $stmt1->execute();
     $actors = $stmt1->fetchColumn();
 
-    // $stmt2 = $db->prepare("SELECT COUNT(id) FROM movies");
-    // $stmt2->execute();
-    // $movies = $stmt2->fetchColumn();
-
-    if ($actors > 0) {
-        echo "В таблице actors всего записей: {$actors}<br>";
-    } else {
+    if ($actors <= 0) {
         filing_database();
     }
-
 }
 
 
@@ -183,5 +190,11 @@ function drop_tables()
 
     $stmt = $db->prepare($sql);
     $stmt->execute();
+}
 
+
+// Красивая распечатка массива
+function debug($data)
+{
+    echo '<pre>' . print_r($data, 1) . '</pre>';
 }
