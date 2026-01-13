@@ -2,6 +2,13 @@
 
 
 
+// Красивая распечатка массива
+function debug($data)
+{
+    echo '<pre>' . print_r($data, 1) . '</pre>';
+}
+
+
 // Создание таблиц
 function create_tables()
 {
@@ -12,7 +19,7 @@ function create_tables()
     CREATE TABLE IF NOT EXISTS users 
     (
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(50) NOT NULL UNIQUE,
+        username VARCHAR(50) NOT NULL,
         pass VARCHAR(255) NOT NULL
 
     );
@@ -141,7 +148,6 @@ function filing_database()
 }
 
 
-
 // Проверяет есть ли нужные таблицы и заполняет дынными из массива data.php
 function check()
 {
@@ -193,8 +199,38 @@ function drop_tables()
 }
 
 
-// Красивая распечатка массива
-function debug($data)
+// Регистрация нового пользователя
+function registration(): bool
 {
-    echo '<pre>' . print_r($data, 1) . '</pre>';
+
+    global $db;
+
+    $username = !empty($_POST['username']) ? trim($_POST['username']) : '';
+    $pass = !empty($_POST['pass']) ? trim($_POST['pass']) : '';
+
+    if (empty($username) || empty($pass)) {
+        $_SESSION['errors'] = "Поля: имя/пароль обязательны";
+        return false;
+    }
+
+    $res = $db->prepare("SELECT COUNT(id) FROM users WHERE username = ?");
+    $res->execute([$username]);
+    if ($res->fetchColumn()) {
+        $_SESSION['errors'] = 'Ошибка: Пользователь с таким именем уже существует';
+        return false;
+    }
+
+    $pass = password_hash($pass, PASSWORD_DEFAULT);
+
+    try {
+        $stmt = $db->prepare("INSERT INTO users (username, pass) VALUES(?, ?)");
+        $stmt->execute([$username, $pass]);
+        $_SESSION['success'] = 'Регистрация прошла успешно';
+        return true;
+    } catch (Exception $e) {
+        $_SESSION['errors'] = $e->getMessage();
+        return false;
+    }
 }
+
+
