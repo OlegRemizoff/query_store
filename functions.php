@@ -2,7 +2,7 @@
 
 
 
-// Красивая распечатка массива
+// Распечатка массива
 function debug($data)
 {
     echo '<pre>' . print_r($data, 1) . '</pre>';
@@ -140,7 +140,7 @@ function filing_database()
         }
 
         $db->commit();
-        echo "Все данные успешно добавлены!";
+        $_SESSION['success'] = "Все данные успешно добавлены!";
     } catch (Exception $e) {
         $db->rollBack(); // Откат таблиц к прежнему состоянию
         $_SESSION['errors'] = "Ошибка при заполнении таблиц: " . $e->getMessage();
@@ -233,4 +233,37 @@ function registration(): bool
     }
 }
 
+// Войти
+function login(): bool
+{
+    global $db;
 
+    $username = !empty($_POST['username']) ? trim($_POST['username']) : '';
+    $pass = !empty($_POST['pass']) ? trim($_POST['pass']) : '';
+
+
+    $res = $db->prepare("SELECT * FROM users WHERE username = ? LIMIT 1");
+    $res->execute([$username]);
+    if (!$user = $res->fetch()) {
+        $_SESSION['errors'] = "Логин или пароль введены неверно!";
+        return false;
+    }
+
+    if (!password_verify($pass, $user['pass'])) {
+        $_SESSION['errors'] = "Логин или пароль введены неверно!";
+        return false;
+    } else {
+        $_SESSION['success'] = "Вход выполнен успешно!";
+        $_SESSION['user']['username'] = $user['username'];
+        $_SESSION['user']['id'] = $user['id'];
+        return true;
+    }
+}
+
+
+// Выйти
+function logout(): bool
+{
+    unset($_SESSION['user']);
+    return true;
+}

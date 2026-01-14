@@ -18,7 +18,7 @@ $db = new PDO("mysql:host={$host};dbname={$db_name}", $user, $pass);
 check();
 
 
-// Регистрация, авторизация и выход
+// Регистрация
 if (isset($_POST['register'])) {
     registration();
     (header("Location: index.php"));
@@ -28,7 +28,21 @@ if (isset($_POST['register'])) {
 
 
 
+// Авторизация
+if (isset($_POST['auth'])) {
+    login();
+    (header("Location: index.php"));
+    die;
+}
 
+
+if (isset($_GET['do'])) {
+    if ($_GET['do'] == 'exit') {
+        logout();
+        (header("Location: index.php"));
+        die;
+    } 
+}
 
 
 
@@ -84,7 +98,7 @@ if (isset($_POST['register'])) {
         </div>
 
         <!-- Форма регистрации -->
-        <?php if (empty($_SESSION['username'])): ?>
+        <?php if (empty($_SESSION['user']['username'])): ?>
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <h3>Регистрация</h3>
@@ -122,7 +136,7 @@ if (isset($_POST['register'])) {
             <form action="index.php" method="post" class="row g-3">
                 <div class="col-md-6 offset-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" name="login" class="form-control" id="floatingInput" placeholder="Имя">
+                        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Имя">
                         <label for="floatingInput">Имя</label>
                     </div>
                 </div>
@@ -143,6 +157,13 @@ if (isset($_POST['register'])) {
 
 
         <?php else: ?>
+
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <p>Добро пожаловать, <b><?php echo $_SESSION['user']['username'] ?></b>! <a href="?do=exit">Log out</a></p>
+                </div>
+            </div>
+
             <!-- Форма сообщения -->
             <form action="index.php" method="post" class="row g-3 mb-5">
                 <div class="col-md-6 offset-md-3">
@@ -157,30 +178,10 @@ if (isset($_POST['register'])) {
                     <button type="submit" name="add" class="btn btn-primary">Отправить</button>
                 </div>
             </form>
-
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <p>Добро пожаловать, User! <a href="?do=exit">Log out</a></p>
-                </div>
-            </div>
             <!-- End Форма сообщения -->
         <?php endif; ?>
 
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <hr>
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Автор: User</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis distinctio
-                            est illum in ipsum nemo nostrum odit optio quibusdam velit. Commodi dolores dolorum ex facere
-                            maiores porro, reprehenderit velit voluptatum.</p>
-                        <p>Дата: 01.01.2000</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
     </div>
