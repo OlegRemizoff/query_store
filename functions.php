@@ -28,6 +28,7 @@ function create_tables()
     (
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         user_id INT UNSIGNED NOT NULL,
+        title VARCHAR(255) NOT NULL,
         query TEXT NOT NULL,
         FOREIGN KEY (user_id)  REFERENCES users (id) ON DELETE CASCADE
     );
@@ -233,6 +234,7 @@ function registration(): bool
     }
 }
 
+
 // Войти
 function login(): bool
 {
@@ -266,4 +268,51 @@ function logout(): bool
 {
     unset($_SESSION['user']);
     return true;
+}
+
+
+// Сохранение запроса в БД
+function add_query():bool
+{
+    global $db;
+
+    $title = !empty($_POST['title']) ? trim($_POST['title']) : '';
+    $raw_query = !empty($_POST['query']) ? trim($_POST['query']) : '';
+
+    if (empty($title) || empty($raw_query)) {
+        $_SESSION['errors'] = 'Поля: "Title" или "SQL Query - не должны быть пусты!" ';
+        return false;
+    }
+
+    // Сохранение запроса в БД
+    function save_query($title, $raw_query)
+    {
+        global $db;
+
+        $sql = <<<SQL
+        INSERT INTO queries (user_id, title, query)
+        VALUES (:user_id, :title, :query)
+        SQL;
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            'user_id' => $_SESSION['user']['id'],
+            'title'   => $title,
+            'query'   => $raw_query
+        ]);
+    }
+
+    try {
+        $res = $db->prepare($raw_query);
+        $res->execute();
+        $query = $res->fetchAll();
+        $_SESSION['success'] = "Success!";
+        debug($query);
+
+        save_query($title, $raw_query);
+        return true;
+    } catch (Exception $e) {
+        $_SESSION['errors'] = $e->getMessage();
+        return false;
+    }
 }

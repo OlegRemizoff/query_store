@@ -46,13 +46,32 @@ if (isset($_GET['do'])) {
         logout();
         (header("Location: index.php"));
         die;
-    } 
+    }
+}
+
+
+
+// SQL Query
+
+if (isset($_POST['add'])) {
+    add_query();
 }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+// SELECT * FROM actors LIMIT 1;
 // $stmt = $db->prepare("SELECT * FROM movies");
 // $stmt->execute();
 // $movies = $stmt->fetchAll();
@@ -183,10 +202,16 @@ if (isset($_GET['do'])) {
             <!-- Форма сообщения -->
             <form action="index.php" method="post" class="row g-3 mb-5">
                 <div class="col-md-6 offset-md-3">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="title" class="form-control" id="floatingInput" placeholder="">
+                        <label for="floatingInput">Title</label>
+                    </div>
+                </div>
+                <div class="col-md-6 offset-md-3">
                     <div class="form-floating">
-                        <textarea class="form-control" name="message" placeholder="Leave a comment here"
+                        <textarea class="form-control" name="query" placeholder="Leave a sql here"
                             id="floatingTextarea" style="height: 100px;"></textarea>
-                        <label for="floatingTextarea">Сообщение</label>
+                        <label for="floatingTextarea">SQL Query</label>
                     </div>
                 </div>
 
