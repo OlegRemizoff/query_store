@@ -6,12 +6,17 @@ error_reporting(E_ALL);
 require_once 'functions.php';
 
 
-$host = 'localhost';
-$db_name = 'query_store';
-$user = 'root';
-$pass = '';
 
-$db = new PDO("mysql:host={$host};dbname={$db_name}", $user, $pass);
+// Подключение к БД
+$config = parse_ini_file('.env');
+
+$db_host = $config['DB_HOST'] ?? 'localhost';
+$db_name   = $config['DB_DATABASE'] ?? 'query_store';
+$db_user = $config['DB_USERNAME'] ?? 'root';
+$db_pass = $config['DB_PASSWORD'] ?? '';
+
+$db = new PDO("mysql:host={$db_host};dbname={$db_name}", $db_user, $db_pass);
+
 
 
 // Проверяет есть ли нужные таблицы и заполняет их дынными
@@ -43,6 +48,17 @@ if (isset($_GET['do'])) {
         die;
     } 
 }
+
+
+
+
+
+// $stmt = $db->prepare("SELECT * FROM movies");
+// $stmt->execute();
+// $movies = $stmt->fetchAll();
+
+// debug($movies);
+
 
 
 
