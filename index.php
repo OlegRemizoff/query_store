@@ -4,89 +4,36 @@ error_reporting(E_ALL);
 
 
 require_once 'functions.php';
+$db = require_once "db.php";
 
 
-
-// Подключение к БД
-$config = parse_ini_file('.env');
-
-$db_host = $config['DB_HOST'] ?? 'localhost';
-$db_name   = $config['DB_DATABASE'] ?? 'query_store';
-$db_user = $config['DB_USERNAME'] ?? 'root';
-$db_pass = $config['DB_PASSWORD'] ?? '';
-
-$db = new PDO("mysql:host={$db_host};dbname={$db_name}", $db_user, $db_pass);
+define("PAGES", __DIR__ . "/pages");
+define("TEMPLATES", __DIR__ . "/templates");
 
 
+$route = $_GET['route'] ?? 'home';
 
-// Проверяет есть ли нужные таблицы и заполняет их дынными
+
+// Роутер
+$route = $_GET['route'] ?? 'home';
+
+$routes = [
+    'home'    => 'home.php',
+    'register'   => 'register.php',
+    'user' => 'user.php',
+    'logout'   => 'logout.php'
+];
+
+
+// Проверяет есть ли нужные таблицы
+// и заполняет их дынными
 check();
 
-
-// Регистрация
-if (isset($_POST['register'])) {
-    registration();
-    (header("Location: index.php"));
-    die;
-}
-
-
-
-
-// Авторизация
-if (isset($_POST['auth'])) {
-    login();
-    (header("Location: index.php"));
-    die;
-}
-
-
-if (isset($_GET['do'])) {
-    if ($_GET['do'] == 'exit') {
-        logout();
-        (header("Location: index.php"));
-        die;
-    }
-}
-
-
-
-// SQL Query
-
-if (isset($_POST['add'])) {
-    add_query();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// SELECT * FROM actors LIMIT 1;
-// $stmt = $db->prepare("SELECT * FROM movies");
-// $stmt->execute();
-// $movies = $stmt->fetchAll();
-
-// debug($movies);
 
 
 
 
 ?>
-
-
-
-
-
 
 
 
@@ -106,122 +53,22 @@ if (isset($_POST['add'])) {
 
 <body>
 
-
     <div class="container">
-        <div class="row my-3">
-            <div class="col">
-                <?php if (!empty($_SESSION['errors'])): ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?php
-                        echo $_SESSION['errors'];
-                        unset($_SESSION['errors']);
-                        ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php endif; ?>
-
-                <?php if (!empty($_SESSION['success'])): ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <?php
-                        echo $_SESSION['success'];
-                        unset($_SESSION['success']);
-                        ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <!-- Форма регистрации -->
-        <?php if (empty($_SESSION['user']['username'])): ?>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <h3>Регистрация</h3>
-                </div>
-            </div>
-            <form action="index.php" method="post" class="row g-3">
-                <div class="col-md-6 offset-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Имя">
-                        <label for="floatingInput">Имя</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 offset-md-3">
-                    <div class="form-floating">
-                        <input type="password" name="pass" class="form-control" id="floatingPassword"
-                            placeholder="Password">
-                        <label for="floatingPassword">Пароль</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 offset-md-3">
-                    <button type="submit" name="register" class="btn btn-primary">Зарегистрироваться</button>
-                </div>
-            </form>
-            <!-- End Форма регистрации-->
-
-            <!-- Форма авторизации -->
-            <div class="row mt-3">
-                <div class="col-md-6 offset-md-3">
-                    <h3>Авторизация</h3>
-                </div>
-            </div>
-
-            <form action="index.php" method="post" class="row g-3">
-                <div class="col-md-6 offset-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Имя">
-                        <label for="floatingInput">Имя</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 offset-md-3">
-                    <div class="form-floating">
-                        <input type="password" name="pass" class="form-control" id="floatingPassword"
-                            placeholder="Password">
-                        <label for="floatingPassword">Пароль</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 offset-md-3">
-                    <button type="submit" name="auth" class="btn btn-primary">Войти</button>
-                </div>
-            </form>
-            <!-- End Форма авторизации -->
+        <!-- Navbar -->
+        <?php include_once "templates/navbar.html" ?>
+        <!-- End navbar -->
+        <!-- Alerts -->
+        <?php include_once "templates/alert.html" ?>
+        <!-- End alerts -->
 
 
-        <?php else: ?>
-
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <p>Добро пожаловать, <b><?php echo $_SESSION['user']['username'] ?></b>! <a href="?do=exit">Log out</a></p>
-                </div>
-            </div>
-
-            <!-- Форма сообщения -->
-            <form action="index.php" method="post" class="row g-3 mb-5">
-                <div class="col-md-6 offset-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" name="title" class="form-control" id="floatingInput" placeholder="">
-                        <label for="floatingInput">Title</label>
-                    </div>
-                </div>
-                <div class="col-md-6 offset-md-3">
-                    <div class="form-floating">
-                        <textarea class="form-control" name="query" placeholder="Leave a sql here"
-                            id="floatingTextarea" style="height: 100px;"></textarea>
-                        <label for="floatingTextarea">SQL Query</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 offset-md-3">
-                    <button type="submit" name="add" class="btn btn-primary">Отправить</button>
-                </div>
-            </form>
-            <!-- End Форма сообщения -->
-        <?php endif; ?>
-
+        <?php
+        if (array_key_exists($route, $routes)) {
+            include PAGES . DIRECTORY_SEPARATOR . $routes[$route];
+        } else {
+            include TEMPLATES . DIRECTORY_SEPARATOR . '404.html';
+        }
+        ?>
 
 
 
@@ -232,14 +79,7 @@ if (isset($_POST['add'])) {
 
 
 
-
-
-
-
-
-
-
-
+    
     <script src="#"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
