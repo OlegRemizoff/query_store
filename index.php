@@ -11,9 +11,6 @@ define("PAGES", __DIR__ . "/pages");
 define("TEMPLATES", __DIR__ . "/templates");
 
 
-$route = $_GET['route'] ?? 'home';
-
-
 // Роутер
 $route = $_GET['route'] ?? 'home';
 

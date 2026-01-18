@@ -10,7 +10,7 @@
                 <a class="nav-link active" aria-current="page" href="index.php?route=home">Главная</a>
                 <a class="nav-link" href="index.php?route=register">Регистрация</a>
                 <?php if(isset($_SESSION['user']['username'])): ?>
-                    <a class="nav-link" href="index.php?route=user">Пользователь | <?php echo $_SESSION['user']['username']; ?></a>
+                    <a class="nav-link" href="index.php?route=user"><b><?php echo $_SESSION['user']['username']; ?></b></a>
                 <?php else: ?>
                     <a class="nav-link" href="index.php?route=user">Пользователь</a>
                 <?php endif; ?>

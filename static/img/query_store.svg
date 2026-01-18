@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg
+PUBLIC "-//W3C//DTD SVG 1.1//EN"
+       "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="44 -3 886 443" width="842px" height="446px" xmlns="http://www.w3.org/2000/svg" version="1.1">
+   <line x1="285" y1="362" x2="275" y2="362" style="stroke:#c00;stroke-width:1;"/>
+   <line x1="198" y1="45" x2="188" y2="45" style="stroke:#c00;stroke-width:1;"/>
+   <line x1="275" y1="362" x2="198" y2="45" style="stroke:#c00;stroke-width:1;"/>
+   <line x1="277.5" y1="362" x2="281.03553390593" y2="365.53553390593" style="stroke:#c00;stroke-width:2;"/>
+   <line x1="277.5" y1="362" x2="281.03553390593" y2="358.46446609407" style="stroke:#c00;stroke-width:2;"/>
+   <line x1="193" y1="45" x2="196.53553390593" y2="48.535533905933" style="stroke:#c00;stroke-width:2;"/>
+   <line x1="193" y1="45" x2="196.53553390593" y2="41.464466094067" style="stroke:#c00;stroke-width:2;"/>
+   <line x1="376" y1="382" x2="386" y2="382" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="496" y1="44" x2="506" y2="44" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="386" y1="382" x2="496" y2="44" style="stroke:#bbb;stroke-width:1;"/>
+   <line x1="383.5" y1="382" x2="379.96446609407" y2="385.53553390593" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="383.5" y1="382" x2="379.96446609407" y2="378.46446609407" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="501" y1="44" x2="497.46446609407" y2="47.535533905933" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="501" y1="44" x2="497.46446609407" y2="40.464466094067" style="stroke:#bbb;stroke-width:2;"/>
+   <line x1="791" y1="378" x2="781" y2="378" style="stroke:#0bf;stroke-width:1;"/>
+   <line x1="780" y1="42" x2="790" y2="42" style="stroke:#0bf;stroke-width:1;"/>
+   <line x1="781" y1="378" x2="780" y2="42" style="stroke:#0bf;stroke-width:1;"/>
+   <line x1="783.5" y1="378" x2="787.03553390593" y2="381.53553390593" style="stroke:#0bf;stroke-width:2;"/>
+   <line x1="783.5" y1="378" x2="787.03553390593" y2="374.46446609407" style="stroke:#0bf;stroke-width:2;"/>
+   <line x1="785" y1="42" x2="781.46446609407" y2="45.535533905933" style="stroke:#0bf;stroke-width:2;"/>
+   <line x1="785" y1="42" x2="781.46446609407" y2="38.464466094067" style="stroke:#0bf;stroke-width:2;"/>
+   <rect width="90" height="20" x="506" y="14" style="fill:#007;stroke:black;"/>
+   <text width="90" height="20" x="511" y="28" style="fill:#fff;" font-family="Arial" font-size="16px"> actors</text>
+   <rect width="90" height="20" x="506" y="34" style="fill:#aea;stroke:black;"/>
+   <text width="90" height="20" x="511" y="48" style="fill:black;" font-family="Arial" font-size="16px">id</text>
+   <rect width="90" height="20" x="506" y="54" style="fill:none;stroke:black;"/>
+   <text width="90" height="20" x="511" y="68" style="fill:black;" font-family="Arial" font-size="16px">actor_name</text>
+   <rect width="90" height="20" x="506" y="74" style="fill:none;stroke:black;"/>
+   <text width="90" height="20" x="511" y="88" style="fill:black;" font-family="Arial" font-size="16px">birth_year</text>
+   <rect width="90" height="20" x="506" y="94" style="fill:none;stroke:black;"/>
+   <text width="90" height="20" x="511" y="108" style="fill:black;" font-family="Arial" font-size="16px">country</text>
+   <rect width="90" height="20" x="506" y="114" style="fill:none;stroke:black;"/>
+   <text width="90" height="20" x="511" y="128" style="fill:black;" font-family="Arial" font-size="16px">img</text>
+   <rect width="129" height="20" x="59" y="15" style="fill:#007;stroke:black;"/>
+   <text width="129" height="20" x="64" y="29" style="fill:#fff;" font-family="Arial" font-size="16px"> movies</text>
+   <rect width="129" height="20" x="59" y="35" style="fill:#aea;stroke:black;"/>
+   <text width="129" height="20" x="64" y="49" style="fill:black;" font-family="Arial" font-size="16px">id</text>
+   <rect width="129" height="20" x="59" y="55" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="69" style="fill:black;" font-family="Arial" font-size="16px">title</text>
+   <rect width="129" height="20" x="59" y="75" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="89" style="fill:black;" font-family="Arial" font-size="16px">release_year</text>
+   <rect width="129" height="20" x="59" y="95" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="109" style="fill:black;" font-family="Arial" font-size="16px">country</text>
+   <rect width="129" height="20" x="59" y="115" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="129" style="fill:black;" font-family="Arial" font-size="16px">director</text>
+   <rect width="129" height="20" x="59" y="135" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="149" style="fill:black;" font-family="Arial" font-size="16px">description</text>
+   <rect width="129" height="20" x="59" y="155" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="169" style="fill:black;" font-family="Arial" font-size="16px">rating</text>
+   <rect width="129" height="20" x="59" y="175" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="189" style="fill:black;" font-family="Arial" font-size="16px">budget</text>
+   <rect width="129" height="20" x="59" y="195" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="209" style="fill:black;" font-family="Arial" font-size="16px">duration_minutes</text>
+   <rect width="129" height="20" x="59" y="215" style="fill:none;stroke:black;"/>
+   <text width="129" height="20" x="64" y="229" style="fill:black;" font-family="Arial" font-size="16px">img</text>
+   <rect width="91" height="20" x="285" y="332" style="fill:#007;stroke:black;"/>
+   <text width="91" height="20" x="290" y="346" style="fill:#fff;" font-family="Arial" font-size="16px"> movie_actor</text>
+   <rect width="91" height="20" x="285" y="352" style="fill:#aea;stroke:black;"/>
+   <text width="91" height="20" x="290" y="366" style="fill:black;" font-family="Arial" font-size="16px">movie_id</text>
+   <rect width="91" height="20" x="285" y="372" style="fill:#aea;stroke:black;"/>
+   <text width="91" height="20" x="290" y="386" style="fill:black;" font-family="Arial" font-size="16px">actor_id</text>
+   <rect width="58" height="20" x="791" y="328" style="fill:#007;stroke:black;"/>
+   <text width="58" height="20" x="796" y="342" style="fill:#fff;" font-family="Arial" font-size="16px"> queries</text>
+   <rect width="58" height="20" x="791" y="348" style="fill:#aea;stroke:black;"/>
+   <text width="58" height="20" x="796" y="362" style="fill:black;" font-family="Arial" font-size="16px">id</text>
+   <rect width="58" height="20" x="791" y="368" style="fill:none;stroke:black;"/>
+   <text width="58" height="20" x="796" y="382" style="fill:black;" font-family="Arial" font-size="16px">user_id</text>
+   <rect width="58" height="20" x="791" y="388" style="fill:none;stroke:black;"/>
+   <text width="58" height="20" x="796" y="402" style="fill:black;" font-family="Arial" font-size="16px">title</text>
+   <rect width="58" height="20" x="791" y="408" style="fill:none;stroke:black;"/>
+   <text width="58" height="20" x="796" y="422" style="fill:black;" font-family="Arial" font-size="16px">query</text>
+   <rect width="81" height="20" x="790" y="12" style="fill:#007;stroke:black;"/>
+   <text width="81" height="20" x="795" y="26" style="fill:#fff;" font-family="Arial" font-size="16px"> users</text>
+   <rect width="81" height="20" x="790" y="32" style="fill:#aea;stroke:black;"/>
+   <text width="81" height="20" x="795" y="46" style="fill:black;" font-family="Arial" font-size="16px">id</text>
+   <rect width="81" height="20" x="790" y="52" style="fill:none;stroke:black;"/>
+   <text width="81" height="20" x="795" y="66" style="fill:black;" font-family="Arial" font-size="16px">username</text>
+   <rect width="81" height="20" x="790" y="72" style="fill:none;stroke:black;"/>
+   <text width="81" height="20" x="795" y="86" style="fill:black;" font-family="Arial" font-size="16px">pass</text>
+</svg>
