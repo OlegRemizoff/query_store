@@ -6,28 +6,20 @@ error_reporting(E_ALL);
 // Регистрация
 if (isset($_POST['register'])) {
     registration();
-    (header("Location: index.php"));
+    (header("Location: index.php?route=user"));
     exit();
 }
-
-// header("Location: index.php?route=home");
 
 
 // Авторизация
 if (isset($_POST['auth'])) {
     login();
-    header("Location: index.php");
+    header("Location: index.php?route=user");
     exit();
 }
 
 
-
-
-
 ?>
-
-
-
 
 
     <!-- Форма регистрации -->
@@ -53,7 +45,7 @@ if (isset($_POST['auth'])) {
         </div>
 
         <div class="col-md-6 offset-md-3">
-            <button type="submit" name="register" class="btn btn-primary">Зарегистрироваться</button>
+            <button type="submit" name="register" class="btn btn-secondary">Зарегистрироваться</button>
         </div>
     </form>
     <!-- End Форма регистрации-->
@@ -82,7 +74,7 @@ if (isset($_POST['auth'])) {
         </div>
 
         <div class="col-md-6 offset-md-3">
-            <button type="submit" name="auth" class="btn btn-primary">Войти</button>
+            <button type="submit" name="auth" class="btn btn-secondary">Войти</button>
         </div>
     </form>
     <!-- End Форма авторизации -->
