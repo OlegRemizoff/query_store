@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Headers already sent
 session_start();
 error_reporting(E_ALL);
 
@@ -18,8 +19,52 @@ $routes = [
     'home'    => 'home.php',
     'register'   => 'register.php',
     'user' => 'user.php',
-    'logout'   => 'logout.php'
+    'logout' => 'register.php'
+    
 ];
+
+
+// Регистрация
+if (isset($_POST['register'])) {
+    registration();
+    header("Location: index.php?route=user");
+    exit();
+}
+
+
+// Авторизация
+if (isset($_POST['auth'])) {
+    login();
+    header("Location: index.php?route=user");
+    exit();
+}
+
+
+// Logout
+if ($route === 'logout') {
+    logout();
+    header("Location: index.php?route=home");
+    exit();
+}
+
+
+// Добавление нового запроса
+if (isset($_POST['add'])) {
+    add_query();
+    header("Location: index.php?route=user");
+    exit();
+}
+
+
+// Изменения запроса
+if (isset($_POST['rewrite']) && isset($_POST['query_id']) && !empty($_POST['rewrite_sql'])) {
+    $query_id = $_POST['query_id'];
+    $new_query = $_POST['rewrite_sql'];
+
+    update_query($query_id, $new_query);
+    header("Location: index.php?route=user");
+    exit();
+}
 
 
 // Проверяет есть ли нужные таблицы

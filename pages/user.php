@@ -3,29 +3,8 @@ error_reporting(E_ALL);
 
 
 
-
-
 $user_id = $_SESSION['user']['id'] ?? null;
 $query_id = $_POST['query_id'] ?? null;
-
-
-// Добавление нового запроса
-if (isset($_POST['add'])) {
-    add_query();
-    header("Location: index.php?route=user");
-    exit();
-}
-
-
-// Изменения запроса
-if (isset($_POST['rewrite']) && isset($_POST['query_id']) && !empty($_POST['rewrite_sql'])) {
-    $query_id = $_POST['query_id'];
-    $new_query = $_POST['rewrite_sql'];
-
-    update_query($query_id, $new_query);
-    header("Location: index.php?route=user");
-    exit();
-}
 
 
 // Получаем все запросы пользователя 
@@ -39,7 +18,6 @@ $stmt = $db->prepare(
 );
 $stmt->execute([$user_id]);
 $all_queries = $stmt->fetchAll();
-
 
 
 // Получаем id для поиска
@@ -67,7 +45,7 @@ if (isset($_POST['show']) && $query_id) {
 <?php if (!empty($_SESSION['user']['username'])): ?>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <p>Добро пожаловать, <b><?php echo $_SESSION['user']['username'] ?></b>! <a href="index.php?route=logout">Log out</a></p>
+            <p>Добро пожаловать, <b><?php echo $_SESSION['user']['username'] ?></b>! <a href="index.php?route=logout">Log out</a>
         </div>
     </div>
 

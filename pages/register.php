@@ -3,20 +3,7 @@ error_reporting(E_ALL);
 
 
 
-// Регистрация
-if (isset($_POST['register'])) {
-    registration();
-    (header("Location: index.php?route=user"));
-    exit();
-}
 
-
-// Авторизация
-if (isset($_POST['auth'])) {
-    login();
-    header("Location: index.php?route=user");
-    exit();
-}
 
 
 ?>
