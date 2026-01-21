@@ -13,8 +13,19 @@ $query_id = $_POST['query_id'] ?? null;
 if (isset($_POST['add'])) {
     add_query();
     header("Location: index.php?route=user");
+    exit();
 }
 
+
+// Изменения запроса
+if (isset($_POST['rewrite']) && isset($_POST['query_id']) && !empty($_POST['rewrite_sql'])) {
+    $query_id = $_POST['query_id'];
+    $new_query = $_POST['rewrite_sql'];
+
+    update_query($query_id, $new_query);
+    header("Location: index.php?route=user");
+    exit();
+}
 
 
 // Получаем все запросы пользователя 
@@ -28,7 +39,6 @@ $stmt = $db->prepare(
 );
 $stmt->execute([$user_id]);
 $all_queries = $stmt->fetchAll();
-
 
 
 
@@ -157,6 +167,42 @@ if (isset($_POST['show']) && $query_id) {
         </div>
     </form>
     <!-- End Форма нового запроса -->
+
+
+
+
+
+    <!-- Форма изменения запроса -->
+    <form action="index.php?route=user" method="post" class="row g-3 mb-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="border-bottom pb-2 mb-4">
+                <h3 class="fw-light">Изменение запроса</h3>
+            </div>
+            <!-- <label for="querySelect" class="form-label">Выберите интересующий вас запрос:</label> -->
+            <select id="querySelect" name="query_id" class="form-select" aria-label="Default select example">
+                <option selected disabled>Выбрать запрос</option>
+                <?php foreach ($all_queries as $query): ?>
+                    <option value="<?= $query['id'] ?>"><?= $query['title'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="col-md-6 offset-md-3">
+            <div class="form-floating">
+                <textarea class="form-control" name="rewrite_sql" placeholder="Leave a sql here"
+                    id="floatingTextarea" style="height: 300px;"><?php if (!empty($sql)) echo htmlspecialchars($sql); ?></textarea>
+                <label for="floatingTextarea">Введите новый запрос</label>
+            </div>
+        </div>
+
+        <div class="col-md-6 offset-md-3 d-flex justify-content-end">
+            <button type="submit" name="rewrite" class="btn btn-light">Выполнить</button>
+        </div>
+    </form>
+    <!-- End форма изменения запроса -->
+
+
+
 
 
 

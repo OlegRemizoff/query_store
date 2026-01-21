@@ -272,7 +272,7 @@ function logout(): bool
 
 
 // Сохранение запроса в БД
-function add_query():bool
+function add_query(): bool
 {
     global $db;
 
@@ -307,8 +307,6 @@ function add_query():bool
         $res->execute();
         $query = $res->fetchAll();
         $_SESSION['success'] = "Success!";
-        debug($query);
-
         save_query($title, $raw_query);
         return true;
     } catch (Exception $e) {
@@ -318,3 +316,26 @@ function add_query():bool
 }
 
 
+// Редактирование запроса
+function update_query($query_id, $new_query): bool
+{
+    global $db;
+
+
+    if (empty($new_query)) {
+        $_SESSION['errors'] = 'Поле:  Query - не должно быть пустым!" ';
+        return false;
+    }
+
+    $sql = "UPDATE queries SET query = ? WHERE id = ?";
+
+    try {
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$new_query, $query_id]);
+        $_SESSION['success'] = "Success!";
+        return true;
+    } catch (Exception $e) {
+        $_SESSION['errors'] = $e->getMessage();
+        return false;
+    }
+}
