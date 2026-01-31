@@ -339,3 +339,50 @@ function update_query($query_id, $new_query): bool
         return false;
     }
 }
+
+
+// Сохранение запроса в БД
+function add_query_ajax(): array
+{
+    global $db;
+
+    $title = !empty($_POST['title']) ? trim($_POST['title']) : '';
+    $raw_query = !empty($_POST['query']) ? trim($_POST['query']) : '';
+
+    if (empty($title) || empty($raw_query)) {
+        return [
+            'title' => 'error',
+            'query' => 'Поля: "Title" или "SQL Query - не должны быть пусты!" '
+            ];
+    }
+
+    // Сохранение запроса в БД
+    function save_query($title, $raw_query)
+    {
+        global $db;
+
+        $sql = <<<SQL
+        INSERT INTO queries (user_id, title, query)
+        VALUES (:user_id, :title, :query)
+        SQL;
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            'user_id' => $_SESSION['user']['id'],
+            'title'   => $title,
+            'query'   => $raw_query
+        ]);
+    }
+
+    try {
+        $res = $db->query($raw_query);
+        $query = $res->fetchAll(PDO::FETCH_ASSOC); // ассоциативный массив, без дублей упростит перебор(javascript)
+        save_query($title, $raw_query);
+        return $query;
+    } catch (Exception $e) {
+        return [
+            'title' => 'error',
+            'query' => $e->getMessage()
+            ];
+    }
+}

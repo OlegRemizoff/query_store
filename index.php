@@ -48,6 +48,14 @@ if ($route === 'logout') {
 }
 
 
+// AJAX Добавление нового запроса
+if (isset($_POST['addAjaxQuery'])) {
+    $res = add_query_ajax();
+    echo json_encode($res);
+    die;
+}
+
+
 // Добавление нового запроса
 if (isset($_POST['add'])) {
     add_query();
@@ -65,6 +73,7 @@ if (isset($_POST['rewrite']) && isset($_POST['query_id']) && !empty($_POST['rewr
     header("Location: index.php?route=user");
     exit();
 }
+
 
 
 // Проверяет есть ли нужные таблицы
@@ -85,9 +94,7 @@ check();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
     <title>Query Store</title>
 </head>
@@ -118,13 +125,15 @@ check();
 
 
 
-
+    
 
 
     
-    <script src="#"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="./public/js/main.js"></script>
+    
 </body>
 
 </html>
